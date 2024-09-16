@@ -38,18 +38,6 @@
         <Reference Include="Assembly-CSharp">
             <HintPath>$(ULTRAKILLPath)\ULTRAKILL_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
-        <Reference Include="UnityEngine.Addressables">
-            <HintPath>$(ULTRAKILLPath)\ULTRAKILL_Data\Managed\Unity.Addressables.dll</HintPath>
-        </Reference>
-        <Reference Include="Unity.ResourceManager">
-            <HintPath>$(ULTRAKILLPath)\ULTRAKILL_Data\Managed\Unity.ResourceManager.dll</HintPath>
-        </Reference>
-        <Reference Include="Unity.ResourceManager">
-            <HintPath>$(ULTRAKILLPath)\ULTRAKILL_Data\Managed\Unity.ResourceManager.dll</HintPath>
-        </Reference>
-        <Reference Include="plog">
-            <HintPath>$(ULTRAKILLPath)\ULTRAKILL_Data\Managed\plog.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
     <ItemGroup>
