@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Title>FixScenesCommand</Title>
+        <Authors>Alyxia Sother</Authors>
+        <Description>Fixes the builtin scenes console command</Description>
+        <Version>1.0.0</Version>
+        <AssemblyName>FixScenesCommand</AssemblyName>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>latest</LangVersion>
+        <RestoreAdditionalProjectSources>
+            https://api.nuget.org/v3/index.json;
+            https://nuget.bepinex.dev/v3/index.json;
+            https://nuget.samboy.dev/v3/index.json
+        </RestoreAdditionalProjectSources>
+        <RootNamespace>FixScenesCommand</RootNamespace>
+
+        <!-- Don't generate language folders -->
+        <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+        <!-- Output FSharp.Core.dll -->
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <!-- Embeds debug symbols -->
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.Core" Version="5.*" />
+        <PackageReference Include="UnityEngine.Modules" Version="2021.3.33" IncludeAssets="compile" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(ULTRAKILLPath)\ULTRAKILL_Data\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="plog">
+            <HintPath>$(ULTRAKILLPath)\ULTRAKILL_Data\Managed\plog.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="PluginInfo.fs" />
+        <Compile Include="Plugin.fs" />
+    </ItemGroup>
+
+    <Target Name="WarnBeforeBuild" BeforeTargets="BeforeBuild">
+        <Error Condition="!Exists($(ULTRAKILLPath))" Text="ULTRAKILLPath not set, create a .fsproj.user file that sets this property to compile" />
+        <Error Condition="!Exists($(BepInExPath))" Text="BepInExPath not set, create a .fsproj.user file that sets this property to compile" />
+    </Target>
+
+    <Target Name="CopyModDlls" AfterTargets="AfterBuild">
+        <Copy SourceFiles="$(OutDir)/$(AssemblyName).dll" DestinationFolder="$(BepInExPath)\plugins\FixScenesCommand\" />
+        <Copy SourceFiles="$(OutDir)/FSharp.Core.dll" DestinationFolder="$(BepInExPath)\plugins\FixScenesCommand\" />
+    </Target>
+
+</Project>
